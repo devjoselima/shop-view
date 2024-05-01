@@ -16,7 +16,7 @@ import {
   Label,
 } from '@/components/ui/'
 
-import { SignInFormSchema, signInFormSchema } from './schemas/sign-in/schema'
+import { SignInFormSchema, signInFormSchema } from './schemas/sign-in'
 
 export const SignIn = () => {
   const form = useForm<SignInFormSchema>({
