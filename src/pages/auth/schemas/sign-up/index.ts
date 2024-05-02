@@ -10,7 +10,7 @@ export const signUpFormSchema = z.object({
   managerName: z.string({
     required_error: 'O nome é obrigatório',
   }),
-  phone: z.number({
+  phone: z.string({
     required_error: 'O número é obrigatório',
   }),
 })
