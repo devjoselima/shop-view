@@ -16,7 +16,7 @@ import {
   Label,
 } from '@/components/ui/'
 
-import { SignUpFormSchema, signUpFormSchema } from '../schemas/sign-up'
+import { SignUpFormSchema, signUpFormSchema } from './schema'
 
 export const SignUp = () => {
   const form = useForm<SignUpFormSchema>({
