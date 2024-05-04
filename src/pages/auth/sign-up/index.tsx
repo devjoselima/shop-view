@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { PhoneInput } from '@/components/inputs/phone-input'
+import { ThemeToggle } from '@/components/theme/theme-toggle'
 import {
   Button,
   Form,
@@ -47,9 +48,12 @@ export const SignUp = () => {
     <>
       <Helmet title="Cadastro" />
       <div className="p-8">
-        <Button variant="ghost" className="absolute right-8 top-8" asChild>
-          <Link to="/sign-in">Fazer login</Link>
-        </Button>
+        <div className="absolute right-8 top-8 flex gap-2">
+          <Button variant="ghost" asChild>
+            <Link to="/sign-in">Fazer login</Link>
+          </Button>
+          <ThemeToggle />
+        </div>
 
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">

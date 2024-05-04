@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 
+import { ThemeToggle } from '@/components/theme/theme-toggle'
 import {
   Button,
   Form,
@@ -45,9 +46,9 @@ export const SignIn = () => {
     <>
       <Helmet title="Login" />
       <div className="p-8">
-        <Button variant="ghost" className="absolute right-8 top-8" asChild>
-          <Link to="/sign-up">Novo estabelecimento</Link>
-        </Button>
+        <div className="absolute right-8 top-8 flex gap-2">
+          <ThemeToggle />
+        </div>
 
         <div className="flex w-[470px] flex-col justify-center gap-7">
           <div className="flex flex-col gap-2 ">
@@ -95,6 +96,13 @@ export const SignIn = () => {
               </Button>
             </form>
           </Form>
+
+          <p>
+            Ainda não tem cadastro ?{' '}
+            <span className="underline-offset-3 underline">
+              <Link to="/sign-up">Cadastre sua loja</Link>
+            </span>
+          </p>
         </div>
       </div>
     </>
