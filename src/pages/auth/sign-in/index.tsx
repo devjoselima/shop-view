@@ -49,12 +49,12 @@ export const SignIn = () => {
           <Link to="/sign-up">Novo estabelecimento</Link>
         </Button>
 
-        <div className="flex w-[350px] flex-col justify-center gap-6">
-          <div className="flex flex-col gap-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Acessar painel
+        <div className="flex w-[470px] flex-col justify-center gap-7">
+          <div className="flex flex-col gap-2 ">
+            <h1 className="text-3xl font-semibold tracking-tight">
+              Portal do Parceiro
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-base text-muted-foreground">
               Acompanhe suas vendas pelo painel do parceiro!
             </p>
           </div>
@@ -62,7 +62,7 @@ export const SignIn = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSignIn)}
-              className="space-y-4"
+              className="space-y-5"
             >
               <div className="space-y-2">
                 <FormField
@@ -74,7 +74,7 @@ export const SignIn = () => {
                       <FormControl>
                         <Input
                           id="email"
-                          placeholder="Digite seu email"
+                          placeholder="nome@email.com"
                           {...field}
                         />
                       </FormControl>
@@ -83,7 +83,11 @@ export const SignIn = () => {
                   )}
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                className="w-full text-base"
+                disabled={isSubmitting}
+              >
                 {isSubmitting && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
