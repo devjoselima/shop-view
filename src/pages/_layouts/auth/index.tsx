@@ -4,10 +4,10 @@ import { Outlet } from 'react-router-dom'
 export const AuthLayout = () => {
   return (
     <div className="grid min-h-screen grid-cols-2 antialiased">
-      <div className="border-gray flex h-full flex-col justify-between border-r bg-muted p-10 text-muted-foreground">
+      <div className="flex h-full flex-col justify-between border-r border-gray bg-muted p-10 text-muted-foreground">
         <div className="flex items-center gap-3 text-lg font-medium text-foreground">
           <Pizza size={20} />
-          <span className="font-semibold">pizza shop</span>
+          <span className="font-semibold">shop view</span>
         </div>
         <footer className="text-sm">
           Painel do parceiro &copy; pizza.shop - {new Date().getFullYear()}

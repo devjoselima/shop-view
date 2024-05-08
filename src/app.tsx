@@ -12,8 +12,8 @@ import { router } from './routes'
 export function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider storageKey="pizza-shop-theme" defaultTheme="dark">
-        <Helmet titleTemplate="%s - pizza shop" />
+      <ThemeProvider storageKey="shop-view-theme" defaultTheme="dark">
+        <Helmet titleTemplate="%s - shop view" />
         <Toaster richColors />
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
