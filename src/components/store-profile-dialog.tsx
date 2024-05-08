@@ -32,6 +32,7 @@ export const StoreProfileDialog = () => {
   const { data: managedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
     queryFn: getManagedRestaurant,
+    staleTime: Infinity,
   })
 
   const {
