@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { signIn } from '@/api/sign-in'
@@ -22,9 +22,14 @@ import {
 import { SignInFormSchema, signInFormSchema } from './schema'
 
 export const SignIn = () => {
+  const [searchParams] = useSearchParams()
+
   const form = useForm<SignInFormSchema>({
     resolver: zodResolver(signInFormSchema),
     shouldUnregister: true,
+    defaultValues: {
+      email: searchParams.get('email') ?? '',
+    },
   })
 
   const { isSubmitting } = form.formState

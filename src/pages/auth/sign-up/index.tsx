@@ -1,9 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
+import { signUp } from '@/api/sign-up'
 import { PhoneInput } from '@/components/inputs/phone-input'
 import { ThemeToggle } from '@/components/theme/theme-toggle'
 import {
@@ -29,14 +31,23 @@ export const SignUp = () => {
 
   const navigate = useNavigate()
 
+  const { mutateAsync: registerRestaurant } = useMutation({
+    mutationFn: signUp,
+  })
+
   const handleSignUp = async (data: SignUpFormSchema) => {
     try {
       console.log(data)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await registerRestaurant({
+        restaurantName: data.restaurantName,
+        email: data.email,
+        managerName: data.managerName,
+        phone: data.phone,
+      })
       toast.success('Estabelecimento cadastrado com sucesso!', {
         action: {
           label: 'Fazer login',
-          onClick: () => navigate('/sign-in'),
+          onClick: () => navigate(`/sign-in?email=${data.email}`),
         },
       })
     } catch (error) {
