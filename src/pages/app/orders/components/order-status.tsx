@@ -13,7 +13,7 @@ const orderStatusMap: Record<OrderStatus, string> = {
   pending: 'Pendente',
   canceled: 'Cancelado',
   processing: 'Em preparo',
-  delivering: 'Entregando',
+  delivering: 'Em entrega',
   delivered: 'Entregue',
 }
 
