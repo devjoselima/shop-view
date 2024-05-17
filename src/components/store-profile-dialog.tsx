@@ -1,16 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import {
-  getManagedRestaurant,
-  GetManagedRestaurantResponse,
-} from '@/api/get-managed-restaurant'
-import { updateProfile } from '@/api/update-profile'
+import { getManagedRestaurant } from '@/api/get-managed-restaurant'
+import { useUpdateProfileMutation } from '@/hooks/use-update-profile-mutation'
 
 import {
   Button,
@@ -32,8 +29,6 @@ const storeProfileSchema = z.object({
 type StoreProfileSchema = z.infer<typeof storeProfileSchema>
 
 export const StoreProfileDialog = () => {
-  const queryClient = useQueryClient()
-
   const { data: managedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
     queryFn: getManagedRestaurant,
@@ -52,45 +47,11 @@ export const StoreProfileDialog = () => {
     },
   })
 
-  const updateManagedRestaurantCache = ({
-    name,
-    description,
-  }: StoreProfileSchema) => {
-    const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
-      'managed-restaurant',
-    ])
-
-    if (cached) {
-      queryClient.setQueryData<GetManagedRestaurantResponse>(
-        ['managed-restaurant'],
-        {
-          ...cached,
-          name,
-          description,
-        },
-      )
-    }
-
-    return { cached }
-  }
-
-  const { mutateAsync: updateProfileFn } = useMutation({
-    mutationFn: updateProfile,
-    onMutate({ name, description }) {
-      const { cached } = updateManagedRestaurantCache({ name, description })
-
-      return { previousProfile: cached }
-    },
-    onError(_, __, context) {
-      if (context?.previousProfile) {
-        updateManagedRestaurantCache(context.previousProfile)
-      }
-    },
-  })
+  const { updateProfileMutation } = useUpdateProfileMutation()
 
   const handleUpdateProfile = async (data: StoreProfileSchema) => {
     try {
-      await updateProfileFn({
+      await updateProfileMutation({
         name: data.name,
         description: data.description,
       })
