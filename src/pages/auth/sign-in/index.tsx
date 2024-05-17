@@ -1,12 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
-import { signIn } from '@/api/sign-in'
 import { ThemeToggle } from '@/components/theme/theme-toggle'
 import {
   Button,
@@ -18,6 +16,7 @@ import {
   Input,
   Label,
 } from '@/components/ui/'
+import { useSignInMutation } from '@/hooks/use-sign-in-mutation'
 
 import { SignInFormSchema, signInFormSchema } from './schema'
 
@@ -34,9 +33,7 @@ export const SignIn = () => {
 
   const { isSubmitting } = form.formState
 
-  const { mutateAsync: authenticate } = useMutation({
-    mutationFn: signIn,
-  })
+  const { authenticate } = useSignInMutation()
 
   const handleSignIn = async (data: SignInFormSchema) => {
     try {
