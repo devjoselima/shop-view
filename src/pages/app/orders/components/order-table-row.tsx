@@ -1,6 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { ArrowRight, Search, X } from 'lucide-react'
+import { useState } from 'react'
 
 import {
   Button,
@@ -24,10 +25,15 @@ export interface OrderTableRowProps {
 }
 
 export const OrderTableRow = ({ order }: OrderTableRowProps) => {
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false)
+
   return (
     <TableRow>
       <TableCell>
-        <Dialog>
+        <Dialog
+          open={isDetailsDialogOpen}
+          onOpenChange={setIsDetailsDialogOpen}
+        >
           <DialogTrigger asChild>
             <Button variant="outline" size="xs">
               <Search size={12} />
@@ -35,7 +41,10 @@ export const OrderTableRow = ({ order }: OrderTableRowProps) => {
             </Button>
           </DialogTrigger>
 
-          <OrderDetails />
+          <OrderDetails
+            isDialogOpen={isDetailsDialogOpen}
+            orderId={order.orderId}
+          />
         </Dialog>
       </TableCell>
 
