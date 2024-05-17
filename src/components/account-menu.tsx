@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
+import { useState } from 'react'
 
 import { getManagedRestaurant } from '@/api/get-managed-restaurant'
 import { getProfile } from '@/api/get-profile'
@@ -17,6 +18,8 @@ import {
 } from './ui/dropdown-menu'
 
 export const AccountMenu = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
@@ -31,8 +34,12 @@ export const AccountMenu = () => {
     })
 
   const { signOutMutation, isSigningOutMutation } = useSignOutMutation()
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false)
+  }
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -84,7 +91,7 @@ export const AccountMenu = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <StoreProfileDialog />
+      <StoreProfileDialog handleDialogClose={handleDialogClose} />
     </Dialog>
   )
 }
