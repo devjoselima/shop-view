@@ -1,11 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
-import { signUp } from '@/api/sign-up'
 import { PhoneInput } from '@/components/inputs/phone-input'
 import { ThemeToggle } from '@/components/theme/theme-toggle'
 import {
@@ -18,6 +17,7 @@ import {
   Input,
   Label,
 } from '@/components/ui/'
+import { useSignUpMutation } from '@/hooks/use-sign-up-mutation'
 
 import { SignUpFormSchema, signUpFormSchema } from './schema'
 
@@ -31,14 +31,11 @@ export const SignUp = () => {
 
   const navigate = useNavigate()
 
-  const { mutateAsync: registerRestaurant } = useMutation({
-    mutationFn: signUp,
-  })
+  const { signUpMutation } = useSignUpMutation()
 
   const handleSignUp = async (data: SignUpFormSchema) => {
     try {
-      console.log(data)
-      await registerRestaurant({
+      await signUpMutation({
         restaurantName: data.restaurantName,
         email: data.email,
         managerName: data.managerName,
@@ -152,6 +149,9 @@ export const SignUp = () => {
               />
 
               <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Finalizar cadastro
               </Button>
 
