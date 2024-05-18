@@ -1,7 +1,7 @@
 import { api } from '@/lib/axios'
 
 interface GetMonthRevenueResponse {
-  amount: number
+  receipt: number
   diffFromLastMonth: number
 }
 
