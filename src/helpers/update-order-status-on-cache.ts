@@ -4,8 +4,6 @@ import { useQueryClient } from '@tanstack/react-query'
 import { GetOrdersResponse } from '@/api/get-orders'
 import { OrderStatus } from '@/pages/app/orders/components/order-status'
 
-export type OrderStatus = 'delivered' | 'canceled'
-
 export const updateOrderStatusOnCache = async (
   orderId: string,
   status: OrderStatus,
