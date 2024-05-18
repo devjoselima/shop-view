@@ -10,6 +10,7 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui'
+import { useCancelOrderMutation } from '@/hooks/use-cancel-order-mutation'
 
 import { OrderDetails } from './order-details'
 import { OrderStatus } from './order-status'
@@ -26,6 +27,8 @@ export interface OrderTableRowProps {
 
 export const OrderTableRow = ({ order }: OrderTableRowProps) => {
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false)
+
+  const { cancelOrderMutation } = useCancelOrderMutation()
 
   return (
     <TableRow>
@@ -73,14 +76,20 @@ export const OrderTableRow = ({ order }: OrderTableRowProps) => {
       </TableCell>
 
       <TableCell>
-        <Button variant="ghost" size="xs">
+        <Button variant="success" className="text-xs" size="xs">
           <ArrowRight size={12} className="mr-2" />
           Aprovar
         </Button>
       </TableCell>
 
       <TableCell>
-        <Button variant="ghost" size="xs">
+        <Button
+          disabled={!['pending', 'processing'].includes(order.status)}
+          variant="destructive"
+          onClick={() => cancelOrderMutation({ orderId: order.orderId })}
+          className="text-xs"
+          size="xs"
+        >
           <X size={12} className="mr-2" />
           Cancelar
         </Button>
