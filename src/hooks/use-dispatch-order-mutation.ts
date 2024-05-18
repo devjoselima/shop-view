@@ -5,14 +5,15 @@ import { dispatchOrder } from '@/api/dispatch-order'
 import { updateOrderStatusOnCache } from '@/helpers/update-order-status-on-cache'
 
 export const useDispatchOrderMutation = () => {
-  const { mutateAsync: dispatchOrderMutation } = useMutation({
-    mutationFn: dispatchOrder,
-    async onSuccess(_, { orderId }) {
-      updateOrderStatusOnCache(orderId, 'delivering')
+  const { mutateAsync: dispatchOrderMutation, isPending: isDispatchingOrder } =
+    useMutation({
+      mutationFn: dispatchOrder,
+      async onSuccess(_, { orderId }) {
+        updateOrderStatusOnCache(orderId, 'delivering')
 
-      toast.success('Status alterado com sucesso!')
-    },
-  })
+        toast.success('Status alterado com sucesso!')
+      },
+    })
 
-  return { dispatchOrderMutation }
+  return { dispatchOrderMutation, isDispatchingOrder }
 }

@@ -5,14 +5,15 @@ import { cancelOrder } from '@/api/cancel-order'
 import { updateOrderStatusOnCache } from '@/helpers/update-order-status-on-cache'
 
 export const useCancelOrderMutation = () => {
-  const { mutateAsync: cancelOrderMutation } = useMutation({
-    mutationFn: cancelOrder,
-    async onSuccess(_, { orderId }) {
-      updateOrderStatusOnCache(orderId, 'canceled')
+  const { mutateAsync: cancelOrderMutation, isPending: isCancelingOrder } =
+    useMutation({
+      mutationFn: cancelOrder,
+      async onSuccess(_, { orderId }) {
+        updateOrderStatusOnCache(orderId, 'canceled')
 
-      toast.success('Pedido cancelado com sucesso')
-    },
-  })
+        toast.success('Pedido cancelado com sucesso')
+      },
+    })
 
-  return { cancelOrderMutation }
+  return { cancelOrderMutation, isCancelingOrder }
 }
