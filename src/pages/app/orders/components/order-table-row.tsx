@@ -10,7 +10,10 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui'
+import { useApproveOrderMutation } from '@/hooks/use-approve-order-mutation'
 import { useCancelOrderMutation } from '@/hooks/use-cancel-order-mutation'
+import { useDeliverOrderMutation } from '@/hooks/use-deliver-order-mutation'
+import { useDispatchOrderMutation } from '@/hooks/use-dispatch-order-mutation'
 
 import { OrderDetails } from './order-details'
 import { OrderStatus } from './order-status'
@@ -28,7 +31,11 @@ export interface OrderTableRowProps {
 export const OrderTableRow = ({ order }: OrderTableRowProps) => {
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false)
 
-  const { cancelOrderMutation } = useCancelOrderMutation()
+  const { cancelOrderMutation, isCancelingOrder } = useCancelOrderMutation()
+  const { approveOrderMutation, isApprovingOrder } = useApproveOrderMutation()
+  const { dispatchOrderMutation, isDispatchingOrder } =
+    useDispatchOrderMutation()
+  const { deliverOrderMutation, isDeliveringOrder } = useDeliverOrderMutation()
 
   return (
     <TableRow>
@@ -76,15 +83,52 @@ export const OrderTableRow = ({ order }: OrderTableRowProps) => {
       </TableCell>
 
       <TableCell>
-        <Button variant="success" className="text-xs" size="xs">
-          <ArrowRight size={12} className="mr-2" />
-          Aprovar
-        </Button>
+        {order.status === 'pending' && (
+          <Button
+            onClick={() => approveOrderMutation({ orderId: order.orderId })}
+            disabled={isApprovingOrder}
+            variant="success"
+            className="text-xs"
+            size="xs"
+          >
+            <ArrowRight size={12} className="mr-2" />
+            Aprovar
+          </Button>
+        )}
+
+        {order.status === 'processing' && (
+          <Button
+            onClick={() => dispatchOrderMutation({ orderId: order.orderId })}
+            disabled={isDispatchingOrder}
+            variant="success"
+            className="text-xs"
+            size="xs"
+          >
+            <ArrowRight size={12} className="mr-2" />
+            Em entrega
+          </Button>
+        )}
+
+        {order.status === 'delivering' && (
+          <Button
+            onClick={() => deliverOrderMutation({ orderId: order.orderId })}
+            disabled={isDeliveringOrder}
+            variant="success"
+            className="text-xs"
+            size="xs"
+          >
+            <ArrowRight size={12} className="mr-2" />
+            Entregue
+          </Button>
+        )}
       </TableCell>
 
       <TableCell>
         <Button
-          disabled={!['pending', 'processing'].includes(order.status)}
+          disabled={
+            !['pending', 'processing'].includes(order.status) ||
+            isCancelingOrder
+          }
           variant="destructive"
           onClick={() => cancelOrderMutation({ orderId: order.orderId })}
           className="text-xs"
