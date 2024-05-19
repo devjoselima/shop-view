@@ -48,7 +48,7 @@ export const Pagination = ({
             className="h-8 w-8 p-0"
           >
             <ChevronLeft size={16} />
-            <span className="sr-only">Proxima página</span>
+            <span className="sr-only">Página anterior</span>
           </Button>
 
           <Button
@@ -58,7 +58,7 @@ export const Pagination = ({
             className="h-8 w-8 p-0"
           >
             <ChevronRight size={16} />
-            <span className="sr-only">Página anterior</span>
+            <span className="sr-only">Proxima página</span>
           </Button>
 
           <Button
