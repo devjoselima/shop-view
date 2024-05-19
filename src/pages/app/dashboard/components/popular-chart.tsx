@@ -19,6 +19,7 @@ export const PopularChart = () => {
     queryFn: getPopularProducts,
     queryKey: ['metrics', 'popular-products'],
   })
+
   return (
     <Card className="col-span-3">
       <CardHeader className="pb-8">
