@@ -2,7 +2,7 @@ import { api } from '@/lib/axios'
 
 export type GetPopularProductsResponse = {
   product: string
-  diffFromLastMonth: number
+  amount: number
 }[]
 
 export const getPopularProducts = async () => {
