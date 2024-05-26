@@ -27,7 +27,7 @@ export const MonthOrdersAmountCard = () => {
                 currency: 'BRL',
               })}
             </span>
-            <p className="text-xs text-rose-500 dark:text-rose-400">
+            <p className="text-xs text-muted-foreground">
               {monthOrdersAmount.diffFromLastMonth >= 0 ? (
                 <>
                   <span className="text-xs text-emerald-500 dark:text-emerald-400 ">
