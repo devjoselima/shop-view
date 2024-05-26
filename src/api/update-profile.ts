@@ -1,6 +1,6 @@
 import { api } from '@/lib/axios'
 
-interface UpdateProfileResponse {
+export interface UpdateProfileBody {
   name: string
   description: string | null
 }
@@ -8,8 +8,8 @@ interface UpdateProfileResponse {
 export const updateProfile = async ({
   name,
   description,
-}: UpdateProfileResponse) => {
-  const response = await api.put<UpdateProfileResponse>('/profile', {
+}: UpdateProfileBody) => {
+  const response = await api.put('/profile', {
     name,
     description,
   })
